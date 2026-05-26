@@ -5,20 +5,22 @@ import { NumberButton } from './NumberButton';
 import { CalculatorScreen } from './CalculatorScreen';
 import { ClearButton } from './ClearButton';
 import { BackspaceButton } from './BackspaceButton';
+import { CloseButton } from './CloseButton';
+import { HistoryButton } from './HistoryButton';
 
 
 @Component({
-  selector: 'grid-layout',
+  selector: 'calculator-page',
   standalone: true,
-  imports: [NumberButton, ClearButton, BackspaceButton, CalculatorScreen],
+  imports: [NumberButton, ClearButton, BackspaceButton, CloseButton, HistoryButton, CalculatorScreen],
   template: `
   <div class = 'grid'>
     <div class='header'>
       <calculator-screen screenValue={{displayValue()}}/>
     </div>
 
-    <number-button numValue=HISTORY/>
-    <number-button numValue=CLOSE/>
+    <history-button (historyButtonClickEvent)="historyButtonClickEvent.emit('')"/>
+    <close-button (closeButtonClickEvent)="closeButtonClickEvent.emit('')"/>
     <clear-button (clearButtonClickEvent)="clearButtonClickEvent.emit('')" />
     <backspace-button (backspaceButtonClickEvent)="backspaceButtonClickEvent.emit('')"/>
 
@@ -45,9 +47,11 @@ import { BackspaceButton } from './BackspaceButton';
   `,
   styleUrl: "global_styles.css"
 })
-export class GridLayout {
+export class CalculatorPage {
   displayValue = input<string>();
   numberClickEvent = output<string>();
   clearButtonClickEvent = output<string>();
   backspaceButtonClickEvent = output<string>();
+  closeButtonClickEvent = output<string>();
+  historyButtonClickEvent = output<string>();
 }
