@@ -19,7 +19,7 @@ button {
   gap: 5px;
 }
 
-.grid button {
+button {
   width: 150px;
   height: 60px;
 }
