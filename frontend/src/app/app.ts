@@ -8,7 +8,9 @@ import { GridLayout } from './GridLayout';
   template: `<grid-layout 
     displayValue= {{calculationValue}} 
     (numberClickEvent) = "this.updateCalculationValue($event)" 
-    (clearButtonClickEvent)="this.clearScreen()"/>`,
+    (clearButtonClickEvent)="this.clearScreen()"
+    (backspaceButtonClickEvent)="this.backspaceScreen()"
+    />`,
   imports: [GridLayout],
   styleUrl: './global_styles.css'
 })
@@ -23,5 +25,11 @@ export class App {
 
   clearScreen(){
     this.calculationValue = '';
+  }
+
+  backspaceScreen(){
+    this.calculationValue = this.calculationValue.substring(0, this.calculationValue.length - 1);
+    //window.location.href = 'about:blank';
+
   }
 }

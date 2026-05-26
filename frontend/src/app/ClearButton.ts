@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { input } from '@angular/core';
 import { output } from '@angular/core';
 
 @Component({

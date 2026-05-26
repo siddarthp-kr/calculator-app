@@ -4,12 +4,13 @@ import { output } from '@angular/core';
 import { NumberButton } from './NumberButton';
 import { CalculatorScreen } from './CalculatorScreen';
 import { ClearButton } from './ClearButton';
+import { BackspaceButton } from './BackspaceButton';
 
 
 @Component({
   selector: 'grid-layout',
   standalone: true,
-  imports: [NumberButton, ClearButton, CalculatorScreen],
+  imports: [NumberButton, ClearButton, BackspaceButton, CalculatorScreen],
   template: `
   <div class = 'grid'>
     <div class='header'>
@@ -19,7 +20,7 @@ import { ClearButton } from './ClearButton';
     <number-button numValue=HISTORY/>
     <number-button numValue=CLOSE/>
     <clear-button (clearButtonClickEvent)="clearButtonClickEvent.emit('')" />
-    <number-button numValue=BACKSPACE/>
+    <backspace-button (backspaceButtonClickEvent)="backspaceButtonClickEvent.emit('')"/>
 
     <number-button (numberClickEvent)="numberClickEvent.emit($event)" numValue=7/>
     <number-button (numberClickEvent)="numberClickEvent.emit($event)" numValue=8/>
@@ -48,4 +49,5 @@ export class GridLayout {
   displayValue = input<string>();
   numberClickEvent = output<string>();
   clearButtonClickEvent = output<string>();
+  backspaceButtonClickEvent = output<string>();
 }
