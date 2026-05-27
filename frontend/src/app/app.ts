@@ -17,7 +17,7 @@ import { HistoryPage } from './Components/HistoryPage';
       (historyButtonClickEvent)="this.openHistoryPage()"
       />
   } @else {
-    <history-page/>
+    <history-page (returnToCalculatorButtonClickEvent) = "this.returnToCalculator()"/>
   }
   `,
   imports: [CalculatorPage, HistoryPage],
@@ -47,5 +47,9 @@ export class App {
 
   openHistoryPage(){
     this.currentPageIsCalculator = false;
+  }
+
+  returnToCalculator(){
+    this.currentPageIsCalculator = true;
   }
 }
