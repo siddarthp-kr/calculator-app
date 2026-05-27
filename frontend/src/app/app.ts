@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { CalculatorPage } from './Components/CalculatorPage';
 import { HistoryPage } from './Components/HistoryPage';
 import { Api } from './services/api';
+import { ChangeDetectorRef } from '@angular/core';
 
 
 
@@ -18,6 +19,7 @@ import { Api } from './services/api';
       (backspaceButtonClickEvent)="this.backspaceScreen()"
       (closeButtonClickEvent)="this.closeApp()"
       (historyButtonClickEvent)="this.openHistoryPage()"
+      (equalsButtonClickEvent)="this.performCalculationInBackend()"
       />
   } @else {
     <history-page (returnToCalculatorButtonClickEvent) = "this.returnToCalculator()"/>
@@ -33,6 +35,8 @@ export class App {
   currentPageIsCalculator = true;
 
   private api = inject(Api)
+
+  constructor(private cd: ChangeDetectorRef){}
 
   updateCalculationValue(item: string) {
     this.calculationValue += <string>item;
@@ -56,5 +60,13 @@ export class App {
 
   returnToCalculator(){
     this.currentPageIsCalculator = true;
+  }
+
+  async performCalculationInBackend(){
+    let solution = await this.api.sendCalculationToBackend(this.calculationValue);
+    this.calculationValue = JSON.parse(solution).solution;
+    console.log(solution)
+    console.log(this.calculationValue)
+    this.cd.detectChanges()
   }
 }

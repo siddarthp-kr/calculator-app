@@ -41,11 +41,13 @@ public class CalculatorController {
     // })
 
     @ResponseBody
-    @PostMapping(value = "/calculation" /* , consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE*/)
+    @PostMapping(value = "/calculation" /*, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE*/)
     
+    //add functionality to give each new calculation an ID, and track the highest ID here
     
-    public void testRequestReception(@RequestBody String calculation){
-        System.out.println("THIS IS THE RESULT OF THE TEST: calculation");
+    public String handleCalculation(@RequestBody String calculation){
+        String solution = "{\"solution\": \"test\"}";
+        return solution;
     }
     
 }
