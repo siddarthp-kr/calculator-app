@@ -10,6 +10,6 @@ export class Api {
     
 
     testFunction(){
-      this.http.post('http://localhost:8080/api/calculator/calculation', {id: 1, calc: "1+5"})
+      this.http.post('http://localhost:8080/api/calculator/calculation', {id: 1, calc: "1+5"}).subscribe()
     }
 }
