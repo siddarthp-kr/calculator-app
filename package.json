@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "frontend": "cd frontend && ng serve",
-    "backend": "cd backend && ./mvnw spring-boot:run",
+    "backend": "cd backend && mvn spring-boot:run",
     "dev": "concurrently \"npm run frontend\" \"npm run backend\""
   },
   "devDependencies": {
