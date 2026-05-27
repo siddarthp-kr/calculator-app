@@ -1,7 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CalculatorPage } from './Components/CalculatorPage';
 import { HistoryPage } from './Components/HistoryPage';
+import { Api } from './services/api';
+
+
 
 @Component({
   selector: 'app-root',
@@ -29,12 +32,15 @@ export class App {
   calculationValue = '';
   currentPageIsCalculator = true;
 
+  private api = inject(Api)
+
   updateCalculationValue(item: string) {
     this.calculationValue += <string>item;
   }
 
   clearScreen(){
     this.calculationValue = '';
+    this.api.testFunction()
   }
 
   backspaceScreen(){
