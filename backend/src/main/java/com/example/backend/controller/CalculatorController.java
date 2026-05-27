@@ -15,13 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
 import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/api/calculator")
-//@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class CalculatorController {
     //Read only 
     //CalculatorService: reference business logic
@@ -40,8 +41,12 @@ public class CalculatorController {
     // })
 
     @ResponseBody
-    @PostMapping(value = "/calculation"/*EDIT ENDPOINT*/ /* , consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE*/)
+    @PostMapping(value = "/calculation" /* , consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE*/)
+    
+    
+    /* This is a test method to test the requesting from the frontend
     public void testRequestReception(@RequestBody String calculation){
         System.out.println("THIS IS THE RESULT OF THE TEST: calculation");
     }
+    */
 }

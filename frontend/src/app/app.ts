@@ -40,7 +40,6 @@ export class App {
 
   clearScreen(){
     this.calculationValue = '';
-    this.api.testFunction()
   }
 
   backspaceScreen(){
