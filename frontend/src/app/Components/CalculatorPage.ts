@@ -7,12 +7,13 @@ import { ClearButton } from './ClearButton';
 import { BackspaceButton } from './BackspaceButton';
 import { CloseButton } from './CloseButton';
 import { HistoryButton } from './HistoryButton';
+import { EqualsButton } from './EqualsButton';
 
 
 @Component({
   selector: 'calculator-page',
   standalone: true,
-  imports: [NumberButton, ClearButton, BackspaceButton, CloseButton, HistoryButton, CalculatorScreen],
+  imports: [NumberButton, ClearButton, BackspaceButton, CloseButton, HistoryButton, EqualsButton, CalculatorScreen],
   template: `
   <div class = 'grid'>
     <div class='header'>
@@ -41,7 +42,7 @@ import { HistoryButton } from './HistoryButton';
 
     <number-button (numberClickEvent)="numberClickEvent.emit($event)" numValue=./>
     <number-button (numberClickEvent)="numberClickEvent.emit($event)" numValue=0/>
-    <number-button numValue='='/>
+    <equals-button (equalsButtonClickEvent)="equalsButtonClickEvent.emit('')"/>
     <number-button numValue='/'>
   <div>
   `,
@@ -54,4 +55,5 @@ export class CalculatorPage {
   backspaceButtonClickEvent = output<string>();
   closeButtonClickEvent = output<string>();
   historyButtonClickEvent = output<string>();
+  equalsButtonClickEvent = output<string>();
 }
