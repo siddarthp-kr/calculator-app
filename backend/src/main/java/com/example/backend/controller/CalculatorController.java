@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import com.example.backend.model.CalculationResponse;
+import com.example.backend.model.CalculationRequest;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,7 +47,7 @@ public class CalculatorController {
     
     //add functionality to give each new calculation an ID, and track the highest ID here
     
-    public String handleCalculation(@RequestBody String calculation){
+    public String handleCalculation(@RequestBody CalculationRequest calculation){
         String solution = "{\"solution\": \"test\"}";
         return solution;
     }
