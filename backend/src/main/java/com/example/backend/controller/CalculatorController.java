@@ -44,9 +44,8 @@ public class CalculatorController {
     @PostMapping(value = "/calculation" /* , consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE*/)
     
     
-    /* This is a test method to test the requesting from the frontend
     public void testRequestReception(@RequestBody String calculation){
         System.out.println("THIS IS THE RESULT OF THE TEST: calculation");
     }
-    */
+    
 }
