@@ -1,0 +1,37 @@
+/* Add application styles & imports to this file! */
+
+td,
+tr {
+  padding: 2px;
+}
+
+table {
+  table-layout: fixed;
+}
+
+button {
+  padding: 5px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 150px);
+  gap: 5px;
+}
+
+button {
+  width: 150px;
+  height: 60px;
+}
+
+.header {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+input {
+  width: 608px;
+  height: 60px;
+  font-size: 50px;
+  color: black;
+}
