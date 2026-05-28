@@ -63,6 +63,14 @@ public class CalculatorController {
     private boolean calculationIsValid(CalculationRequest calculation){
         boolean isValid = false;
 
+        //contains at most 3 operations (2 minus, 1 other)
+
+        //check 2: each minus sign is followed by a number or another (single) minus sign
+
+        //check 3: each operation follows and is followed by a number
+
+        //check 4: if there are three minus signs, two of them are next to each other (so that there are only two numbers)
+
         return isValid;
     }
     

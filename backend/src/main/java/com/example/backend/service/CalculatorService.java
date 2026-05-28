@@ -47,35 +47,20 @@ public class CalculatorService {
     //Converts a string of the whole calculation into a string array: ["num1", "operation", "num2", ""];
     private String[] parseCalculationToStrings(String calculation){
         String[] parsedCalculationArr = new String[4];
+        int operationIndex = 0;
+        boolean isJustNumber = false;
+        String num1 = "", num2 = "", operation = "";
         if(calculation.indexOf("+") >= 0){
-            int operationIndex = calculation.indexOf("+");
-            String num1 = calculation.substring(0, operationIndex);
-            String num2 = calculation.substring(operationIndex + 1);
-            String operation = calculation.substring(operationIndex, operationIndex + 1);
-            parsedCalculationArr[0] = num1;
-            parsedCalculationArr[1] = operation;
-            parsedCalculationArr[2] = num2;
+            operationIndex = calculation.indexOf("+");
 
         } else if(calculation.indexOf("*") >= 0){
-            int operationIndex = calculation.indexOf("*");
-            String num1 = calculation.substring(0, operationIndex);
-            String num2 = calculation.substring(operationIndex + 1);
-            String operation = calculation.substring(operationIndex, operationIndex + 1);
-            parsedCalculationArr[0] = num1;
-            parsedCalculationArr[1] = operation;
-            parsedCalculationArr[2] = num2;
-
+            operationIndex = calculation.indexOf("*");
+           
         } else if(calculation.indexOf("/") >= 0){
-            int operationIndex = calculation.indexOf("/");
-            String num1 = calculation.substring(0, operationIndex);
-            String num2 = calculation.substring(operationIndex + 1);
-            String operation = calculation.substring(operationIndex, operationIndex + 1);
-            parsedCalculationArr[0] = num1;
-            parsedCalculationArr[1] = operation;
-            parsedCalculationArr[2] = num2;
-
+            operationIndex = calculation.indexOf("/");
+        
         } else if(calculation.indexOf("-") >= 0){
-            int operationIndex = calculation.indexOf("-");
+            operationIndex = calculation.indexOf("-");
             //put different code here for negatives vs subtraction
             String afterFirstMinusSignStr = calculation.substring(operationIndex + 1);
 
@@ -87,15 +72,29 @@ public class CalculatorService {
                     if(thirdMinusSignIndex >= 0){
                         operationIndex = secondMinusSignIndex;
                     } else {
-                        //check here which minus sign is the correct one
+                        if(operationIndex == 0){
+                            operationIndex = secondMinusSignIndex;
+                        }
                     }
                 }
             }
-            
-
         } else {
-            //Put error message here
+            isJustNumber = true;
         }
+
+        if(!isJustNumber){
+            num1 = calculation.substring(0, operationIndex);
+            num2 = calculation.substring(operationIndex + 1);
+            operation = calculation.substring(operationIndex, operationIndex + 1);
+        } else {
+            num1 = calculation;
+            operation = "+";
+            num2 = "0";
+        }
+
+        parsedCalculationArr[0] = num1;
+        parsedCalculationArr[1] = operation;
+        parsedCalculationArr[2] = num2;
         
         return parsedCalculationArr;
     }
