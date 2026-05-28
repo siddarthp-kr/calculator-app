@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import com.example.backend.model.CalculationResponse;
+import com.example.backend.model.CalculationRequest;
+import com.example.backend.service.CalculatorService;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,10 +30,10 @@ public class CalculatorController {
     //Read only 
     //CalculatorService: reference business logic
     //calculatorService: calling methods from the service
-    //private final CalculatorService calculatorService;
+    private final CalculatorService calculatorService = new CalculatorService();
 
     // public CalculatorController(CalculatorService service){
-    //     this.service = service;
+    //     this.calculatorService = service;
     // }
 
     @Operation(description = "CALCULATOR getOperationCount API : fetch operation usage")
@@ -43,11 +46,24 @@ public class CalculatorController {
     @ResponseBody
     @PostMapping(value = "/calculation" /*, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE*/)
     
-    //add functionality to give each new calculation an ID, and track the highest ID here
     
-    public String handleCalculation(@RequestBody String calculation){
-        String solution = "{\"solution\": \"test\"}";
+    public String handleCalculation(@RequestBody CalculationRequest calculation){
+        String solution = "ERROR";
+        if(calculationIsValid(calculation)){
+            solution = calculatorService.performCalculation(calculation);
+        } else {
+            solution = "ERROR";
+        }
+        
         return solution;
+    }
+
+    //finish this method to determine the validity of the calculation sent
+    //Check that all the parts are there, not dividing by 0
+    private boolean calculationIsValid(CalculationRequest calculation){
+        boolean isValid = false;
+
+        return isValid;
     }
     
 }
