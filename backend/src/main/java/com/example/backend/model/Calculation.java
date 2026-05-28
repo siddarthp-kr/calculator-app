@@ -3,8 +3,6 @@ package com.example.backend.model;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 
 @Getter
