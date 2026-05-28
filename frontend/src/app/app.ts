@@ -64,7 +64,7 @@ export class App {
 
   async performCalculationInBackend(){
     let solution = await this.api.sendCalculationToBackend(this.calculationValue);
-    this.calculationValue = JSON.parse(solution).solution;
+    this.calculationValue = solution//JSON.parse(solution).solution;
     console.log(solution)
     console.log(this.calculationValue)
     this.cd.detectChanges()

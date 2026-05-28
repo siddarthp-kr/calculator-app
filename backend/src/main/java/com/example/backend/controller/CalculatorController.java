@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import com.example.backend.model.CalculationResponse;
-import com.example.backend.model.CalculationRequest;
 import com.example.backend.service.CalculatorService;
 
 
@@ -44,10 +43,10 @@ public class CalculatorController {
     // })
 
     @ResponseBody
-    @PostMapping(value = "/calculation" /*, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE*/)
+    @PostMapping(value = "/calculation")
     
     
-    public String handleCalculation(@RequestBody CalculationRequest calculation){
+    public String handleCalculation(@RequestBody String calculation){
         String solution = "ERROR";
         if(calculationIsValid(calculation)){
             solution = calculatorService.performCalculation(calculation);
@@ -55,12 +54,13 @@ public class CalculatorController {
             solution = "ERROR";
         }
         
+
         return solution;
     }
 
-    //finish this method to determine the validity of the calculation sent
-    //Check that all the parts are there, not dividing by 0, valid syntax, etc.
-    private boolean calculationIsValid(CalculationRequest calculation){
+    // finish this method to determine the validity of the calculation sent
+    // Check that all the parts are there, not dividing by 0, valid syntax, etc.
+    private boolean calculationIsValid(String calculation){
         boolean isValid = true;
 
         //contains at most 3 operations (2 minus, 1 other)

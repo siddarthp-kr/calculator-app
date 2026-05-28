@@ -15,8 +15,8 @@ export class Api {
     }
 
     async sendCalculationToBackend(calculation: string): Promise<string>{
-      let jsonVal = {calc: calculation}
-      const result = await firstValueFrom(this.http.post('http://localhost:8080/api/calculator/calculation', jsonVal, {responseType: 'text'}))
+      //let jsonVal = {calc: calculation}
+      const result = await firstValueFrom(this.http.post('http://localhost:8080/api/calculator/calculation', calculation, {responseType: 'text'}))
       return result;
     }
 }
