@@ -43,7 +43,7 @@ import { EqualsButton } from './EqualsButton';
     <number-button (numberClickEvent)="numberClickEvent.emit($event)" numValue=./>
     <number-button (numberClickEvent)="numberClickEvent.emit($event)" numValue=0/>
     <equals-button (equalsButtonClickEvent)="equalsButtonClickEvent.emit('')"/>
-    <number-button numValue='/'>
+    <number-button (numberClickEvent)="numberClickEvent.emit($event)" numValue='/'/>
   <div>
   `,
   styleUrl: "global_styles.css"

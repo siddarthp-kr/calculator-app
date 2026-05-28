@@ -35,8 +35,8 @@ public class CalculatorService {
 
         sendCalculationToDB(calcArr);
 
-        return ((Double)solution).toString();
-        
+        //return ((Double)solution).toString();
+        return calcArr[3];
     }
 
     //sends stuff to the repository layer, returns a boolean true if successful.
@@ -63,21 +63,17 @@ public class CalculatorService {
         } else if(calculation.indexOf("-") >= 0){
             operationIndex = calculation.indexOf("-");
             //put different code here for negatives vs subtraction
-            String afterFirstMinusSignStr = calculation.substring(operationIndex + 1);
-
-            if(afterFirstMinusSignStr.indexOf("-") >= 0){
-                int secondMinusSignIndex = afterFirstMinusSignStr.indexOf("-");
-                if(secondMinusSignIndex >= 0){
-                    String afterSecondMinusSignStr = afterFirstMinusSignStr.substring(secondMinusSignIndex + 1);
-                    int thirdMinusSignIndex = afterSecondMinusSignStr.indexOf("-");
-                    if(thirdMinusSignIndex >= 0){
+            int secondMinusSignIndex = calculation.indexOf("-", operationIndex + 1);
+            if(secondMinusSignIndex >= 0){
+                int thirdMinusSignIndex = calculation.indexOf("-", secondMinusSignIndex + 1);
+                if(thirdMinusSignIndex >= 0){
+                    operationIndex = secondMinusSignIndex;
+                } else {
+                    if(operationIndex == 0){
                         operationIndex = secondMinusSignIndex;
-                    } else {
-                        if(operationIndex == 0){
-                            operationIndex = secondMinusSignIndex;
-                        }
                     }
                 }
+                
             }
         } else {
             isJustNumber = true;
@@ -102,13 +98,17 @@ public class CalculatorService {
 
     //Rounds the solution to 8 decimal places if necessary
     private String roundOffAndStringifySolution(double number){
-        Double roundedNumber = Math.round(number * 100000) / 100000 + 0.0;
-        String numStr = roundedNumber.toString();
+        double roundedNumber = /*(Math.round(number * 1000000000) + 0.0) / 1000000000*/ number;
+        String numStr = "";
 
         //get rid of decimal pt if the solution is an integer
-        if(roundedNumber - Math.floor(roundedNumber) == 0.0){
-            numStr = numStr.substring(0,numStr.indexOf("."));
+        if(roundedNumber - Math.floor(roundedNumber) <= 0.00000001){
+            numStr = ((int) roundedNumber) + "";
+        } else {
+            numStr = roundedNumber + "";
         }
+
+        
 
         return numStr;
     }
