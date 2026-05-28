@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
+
+import com.example.backend.model.CalculationRequest;
 import com.example.backend.model.CalculationResponse;
 import com.example.backend.service.CalculatorService;
-
+import com.example.backend.model.CalculationRequest;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import java.time.LocalDateTime;
@@ -29,7 +31,14 @@ public class CalculatorController {
     //Read only 
     //CalculatorService: reference business logic
     //calculatorService: calling methods from the service
-    private final CalculatorService calculatorService = new CalculatorService();
+
+
+    //private final CalculatorService calculatorService = new CalculatorService();
+    private final CalculatorService calculatorService;
+
+    public CalculatorController(CalculatorService calculatorService) {
+        this.calculatorService = calculatorService;
+    }
 
     // public CalculatorController(CalculatorService service){
     //     this.calculatorService = service;
@@ -46,16 +55,8 @@ public class CalculatorController {
     @PostMapping(value = "/calculation")
     
     
-    public String handleCalculation(@RequestBody String calculation){
-        String solution = "ERROR";
-        if(calculationIsValid(calculation)){
-            solution = calculatorService.performCalculation(calculation);
-        } else {
-            solution = "ERROR";
-        }
-        
-
-        return solution;
+    public String handleCalculation(@RequestBody CalculationRequest calculation){
+            return calculatorService.performCalculation(calculation);
     }
 
     // finish this method to determine the validity of the calculation sent
