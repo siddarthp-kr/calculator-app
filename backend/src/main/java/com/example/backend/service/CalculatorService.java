@@ -104,7 +104,10 @@ public class CalculatorService {
         Double roundedNumber = Math.round(number * 100000) / 100000;
         String numStr = roundedNumber.toString();
 
-        //add code to get rid of decimal pt if the solution is an integer
+        //get rid of decimal pt if the solution is an integer
+        if(roundedNumber - Math.floor(roundedNumber) == 0){
+            numStr = numStr.substring(0,numStr.indexOf("."));
+        }
 
         return numStr;
     }
