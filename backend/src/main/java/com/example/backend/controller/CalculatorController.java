@@ -61,7 +61,7 @@ public class CalculatorController {
     //finish this method to determine the validity of the calculation sent
     //Check that all the parts are there, not dividing by 0, valid syntax, etc.
     private boolean calculationIsValid(CalculationRequest calculation){
-        boolean isValid = false;
+        boolean isValid = true;
 
         //contains at most 3 operations (2 minus, 1 other)
 

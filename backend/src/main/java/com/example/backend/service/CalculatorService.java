@@ -1,6 +1,7 @@
 package com.example.backend.service;
 import com.example.backend.model.CalculationRequest;
 import java.lang.Math;
+import org.springframework.stereotype.Service;
 
 @Service
 public class CalculatorService {
@@ -8,12 +9,12 @@ public class CalculatorService {
     public CalculatorService(){
     }
 
-    private String performCalculation(CalculationRequest calculation){
+    public String performCalculation(CalculationRequest calculation){
         String[] calcArr = parseCalculationToStrings(calculation.getProblem());
         double num1 = Double.parseDouble(calcArr[0]);
         double num2 = Double.parseDouble(calcArr[2]);
         String operation = calcArr[1];
-        double solution;
+        double solution = 0;
 
         
         switch(operation){
@@ -35,13 +36,14 @@ public class CalculatorService {
 
         sendCalculationToDB(calcArr);
 
-        return solution;
+        return ((Double)solution).toString();
         
     }
 
     //sends stuff to the repository layer, returns a boolean true if successful.
     private boolean sendCalculationToDB(String[] calcArr){
-
+        //fill this in
+        return false;
     }
 
     //Converts a string of the whole calculation into a string array: ["num1", "operation", "num2", ""];
@@ -101,7 +103,7 @@ public class CalculatorService {
 
     //Rounds the solution to 8 decimal places if necessary
     private String roundOffAndStringifySolution(double number){
-        Double roundedNumber = Math.round(number * 100000) / 100000;
+        Double roundedNumber = Math.round(number * 100000) / 100000 + 0.0;
         String numStr = roundedNumber.toString();
 
         //get rid of decimal pt if the solution is an integer
