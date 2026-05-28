@@ -1,5 +1,4 @@
 package com.example.backend.service;
-import com.example.backend.model.CalculationRequest;
 import java.lang.Math;
 import org.springframework.stereotype.Service;
 
@@ -9,8 +8,8 @@ public class CalculatorService {
     public CalculatorService(){
     }
 
-    public String performCalculation(CalculationRequest calculation){
-        String[] calcArr = parseCalculationToStrings(calculation.getProblem());
+    public String performCalculation(String calculation){
+        String[] calcArr = parseCalculationToStrings(calculation);
         double num1 = Double.parseDouble(calcArr[0]);
         double num2 = Double.parseDouble(calcArr[2]);
         String operation = calcArr[1];
@@ -107,7 +106,7 @@ public class CalculatorService {
         String numStr = roundedNumber.toString();
 
         //get rid of decimal pt if the solution is an integer
-        if(roundedNumber - Math.floor(roundedNumber) == 0){
+        if(roundedNumber - Math.floor(roundedNumber) == 0.0){
             numStr = numStr.substring(0,numStr.indexOf("."));
         }
 
