@@ -1,5 +1,6 @@
 import { Component, OnInit, output } from '@angular/core';
 import { Api } from '../services/api';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
     selector: 'history-page',
@@ -25,7 +26,7 @@ import { Api } from '../services/api';
 export class HistoryPage implements OnInit{
 
     calculationHistory: any[] = [];
-    constructor(private api: Api) {}
+    constructor(private api: Api, private cd: ChangeDetectorRef) {}
     ngOnInit() {
         this.loadHistory();
     }
@@ -35,13 +36,14 @@ export class HistoryPage implements OnInit{
         this.api.getHistory(0,5).subscribe(data =>{
             console.log("Fetching History:", data);
             //Goes through each record and rename the object and save to calculation history
-            this.calculationHistory = data.map (calc => ({
+            this.calculationHistory = data.calculations.map ((calc: any) => ({
                 id: calc.id,
-                first: calc.operation,
+                first: calc.num1,
                 operator: calc.operation,
                 second: calc.num2,
                 solution: calc.result
             }));
+            this.cd.detectChanges();
         });
     }
 
@@ -50,3 +52,4 @@ export class HistoryPage implements OnInit{
         this.returnToCalculatorButtonClickEvent.emit('');
     }
 }
+
