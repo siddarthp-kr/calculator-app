@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.example.backend.model.CalculationRequest;
-import com.example.backend.model.CalculationResponse;
+//import com.example.backend.model.CalculationResponse;
 import com.example.backend.service.CalculatorService;
 import com.example.backend.model.CalculationRequest;
 
@@ -39,10 +39,6 @@ public class CalculatorController {
     public CalculatorController(CalculatorService calculatorService) {
         this.calculatorService = calculatorService;
     }
-
-    // public CalculatorController(CalculatorService service){
-    //     this.calculatorService = service;
-    // }
 
     @Operation(description = "CALCULATOR getOperationCount API : fetch operation usage")
     // @ApiResponses(value = {
