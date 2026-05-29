@@ -20,12 +20,21 @@ import { ChangeDetectorRef } from '@angular/core';
             </tr>
         }
     </table>
+    <div class="pagination-button">
+        <button (click) = "goToPreviousPage()" [disabled] = "currentPage === 0">Previous</button>
+        <span>Page {{ currentPage + 1 }}</span>
+        <button (click) = "goToNextPage()" [disabled] = "!hasNextPage">Next</button>
+    </div>
     `,
     styleUrl: 'global_styles.css'
 })
 export class HistoryPage implements OnInit{
 
     calculationHistory: any[] = [];
+    currentPage = 0;
+    pageSize = 5;
+    hasNextPage = false;
+
     constructor(private api: Api, private cd: ChangeDetectorRef) {}
     ngOnInit() {
         this.loadHistory();
@@ -43,9 +52,25 @@ export class HistoryPage implements OnInit{
                 second: calc.num2,
                 solution: calc.result
             }));
+            this.hasNextPage = this.calculationHistory.length === this.pageSize;
             this.cd.detectChanges();
         });
     }
+
+    goToPreviousPage(){
+        if (this.currentPage > 0){
+            this.currentPage--;
+            this.loadHistory();
+        }
+    }
+
+    goToNextPage(){
+        if (this.hasNextPage){
+            this.currentPage++;
+            this.loadHistory();
+        }
+    }
+
 
     returnToCalculatorButtonClickEvent = output<string>();
     handleButtonClick(){
