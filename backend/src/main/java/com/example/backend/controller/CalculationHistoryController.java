@@ -2,14 +2,12 @@ package com.example.backend.controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.GetMapping;
-import java.util.List;
-import java.util.ArrayList;
-import com.example.backend.model.Calculation;
 import com.example.backend.model.CalculationHistoryRequest;
 import com.example.backend.model.CalculationHistoryResponse;
 import com.example.backend.service.CalculationHistoryService;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @RestController
@@ -25,6 +23,7 @@ public class CalculationHistoryController {
     
     //maybe return a POJO instead of a List?
 
+    @ResponseBody
     @GetMapping(value = "/history")
     public CalculationHistoryResponse getListOfCalculations(@RequestBody CalculationHistoryRequest calculationHistoryRequest){
         CalculationHistoryResponse calculationHistoryResponse = this.calculationHistoryService.getListOfCalculationsFromDB(calculationHistoryRequest);
