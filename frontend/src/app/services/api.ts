@@ -40,4 +40,13 @@ export class Api {
         return result;
 
     }
+
+    getHistory(page: number, size: number){
+      return this.http.get<any>('http://localhost:8080/api/calculator/history', {
+        params: {
+          page: page,
+          size: size
+        }
+      });
+    }
 }

@@ -13,13 +13,13 @@ import { ChangeDetectorRef } from '@angular/core';
   template: `
   @if(currentPageIsCalculator){
     <calculator-page 
-      displayValue= {{calculationValue}} 
-      (numberClickEvent) = "this.updateCalculationValue($event)" 
-      (clearButtonClickEvent)="this.clearScreen()"
-      (backspaceButtonClickEvent)="this.backspaceScreen()"
-      (closeButtonClickEvent)="this.closeApp()"
-      (historyButtonClickEvent)="this.openHistoryPage()"
-      (equalsButtonClickEvent)="this.performCalculationInBackend()"
+      [displayValue] = "calculationValue" 
+      (numberClickEvent) = "updateCalculationValue($event)" 
+      (clearButtonClickEvent)="clearScreen()"
+      (backspaceButtonClickEvent)="backspaceScreen()"
+      (closeButtonClickEvent)="closeApp()"
+      (historyButtonClickEvent)="openHistoryPage()"
+      (equalsButtonClickEvent)="performCalculationInBackend()"
       />
   } @else {
     <history-page (returnToCalculatorButtonClickEvent) = "this.returnToCalculator()"/>
