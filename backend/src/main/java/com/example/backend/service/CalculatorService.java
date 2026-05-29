@@ -1,12 +1,16 @@
 package com.example.backend.service;
 import java.lang.Math;
 import org.springframework.stereotype.Service;
+import com.example.backend.repository.CalculatorRepositoryImpl;
 
 @Service
 public class CalculatorService {
     
-    public CalculatorService(){
+    private final CalculatorRepositoryImpl calculatorRepository;
+    public CalculatorService(CalculatorRepositoryImpl repository){
+        this.calculatorRepository = repository;
     }
+
 
     public String performCalculation(String calculation){
         String[] calcArr = parseCalculationToStrings(calculation);

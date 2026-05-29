@@ -27,12 +27,12 @@ import java.time.LocalDateTime;
 public class CalculatorController {
     //Read only 
     //CalculatorService: reference business logic
-    //calculatorService: calling methods from the service
-    private final CalculatorService calculatorService = new CalculatorService();
+    //calculatorService: calling methods from the services
+    private final CalculatorService calculatorService;
 
-    // public CalculatorController(CalculatorService service){
-    //     this.calculatorService = service;
-    // }
+    public CalculatorController(CalculatorService service){
+        this.calculatorService = service;
+    }
 
     @Operation(description = "CALCULATOR getOperationCount API : fetch operation usage")
     // @ApiResponses(value = {
