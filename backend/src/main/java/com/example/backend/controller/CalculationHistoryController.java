@@ -3,11 +3,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.example.backend.model.CalculationHistoryRequest;
 import com.example.backend.model.CalculationHistoryResponse;
 import com.example.backend.service.CalculationHistoryService;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 
 @RestController
 @RequestMapping("/api/calculator")
@@ -22,7 +23,7 @@ public class CalculationHistoryController {
     
     //maybe return a POJO instead of a List?
 
-    @RequestBody
+    @ResponseBody
     @GetMapping(value = "/history")
     public CalculationHistoryResponse getListOfCalculations(CalculationHistoryRequest calculationHistoryRequest){
         CalculationHistoryResponse calculationHistoryResponse = this.calculationHistoryService.getListOfCalculationsFromDB(calculationHistoryRequest);
