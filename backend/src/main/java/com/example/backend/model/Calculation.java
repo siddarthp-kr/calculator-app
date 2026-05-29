@@ -16,5 +16,9 @@ public class Calculation {
     private double num2;
     private String operation;
     private double result;
+
+    public Calculation(){
+        
+    }
     
 }
