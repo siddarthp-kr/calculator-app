@@ -6,8 +6,15 @@ import { ChangeDetectorRef } from '@angular/core';
     selector: 'history-page',
     template: `
     <h2>Calculation History</h2>
-    <h5>These are the last {{calculationHistory.length}} calculations</h5>
+
+    @if(calculationHistory.length === 0){
+        <h5>There are no calculations</h5>
+    } @else{
+        <h5>These are the last {{ calculationHistory.length }} calculations</h5>
+        }
+    
     <button class="returnToCalcButton" (click)="handleButtonClick()">Return to Calculator</button>
+
     <table>
         @for(calc of calculationHistory; track calc.id){
             
@@ -20,12 +27,21 @@ import { ChangeDetectorRef } from '@angular/core';
             </tr>
         }
     </table>
+    <div class="pagination-button">
+        <button (click) = "goToPreviousPage()" [disabled] = "currentPage === 0">Previous</button>
+        <span>Page {{ currentPage + 1 }}</span>
+        <button (click) = "goToNextPage()" [disabled] = "!hasNextPage">Next</button>
+    </div>
     `,
     styleUrl: 'global_styles.css'
 })
 export class HistoryPage implements OnInit{
 
     calculationHistory: any[] = [];
+    currentPage = 0;
+    pageSize = 5;
+    hasNextPage = false;
+
     constructor(private api: Api, private cd: ChangeDetectorRef) {}
     ngOnInit() {
         this.loadHistory();
@@ -33,7 +49,7 @@ export class HistoryPage implements OnInit{
 
     loadHistory(){
         //Api call for most recent data
-        this.api.getHistory(0,5).subscribe(data =>{
+        this.api.getHistory(this.currentPage, this.pageSize).subscribe(data =>{
             console.log("Fetching History:", data);
             //Goes through each record and rename the object and save to calculation history
             this.calculationHistory = data.calculations.map ((calc: any) => ({
@@ -43,9 +59,25 @@ export class HistoryPage implements OnInit{
                 second: calc.num2,
                 solution: calc.result
             }));
+            this.hasNextPage = this.calculationHistory.length === this.pageSize;
             this.cd.detectChanges();
         });
     }
+
+    goToPreviousPage(){
+        if (this.currentPage > 0){
+            this.currentPage--;
+            this.loadHistory();
+        }
+    }
+
+    goToNextPage(){
+        if (this.hasNextPage){
+            this.currentPage++;
+            this.loadHistory();
+        }
+    }
+
 
     returnToCalculatorButtonClickEvent = output<string>();
     handleButtonClick(){
