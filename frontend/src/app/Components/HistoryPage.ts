@@ -1,13 +1,14 @@
-import { Component, output } from '@angular/core';
+import { Component, OnInit, output } from '@angular/core';
+import { Api } from '../services/api';
 
 @Component({
     selector: 'history-page',
     template: `
     <h2>Calculation History</h2>
-    <h5>These are the last {{tempCalculationHistory.length}} calculations</h5>
+    <h5>These are the last {{calculationHistory.length}} calculations</h5>
     <button class="returnToCalcButton" (click)="handleButtonClick()">Return to Calculator</button>
     <table>
-        @for(calc of tempCalculationHistory; track calc.id){
+        @for(calc of calculationHistory; track calc.id){
             
             <tr>
                 <td>{{calc.first}}</td> 
@@ -21,12 +22,29 @@ import { Component, output } from '@angular/core';
     `,
     styleUrl: 'global_styles.css'
 })
-export class HistoryPage {
-    tempCalculationHistory = [
-        {id: "1", first: "5", operator: "+", second: "6", solution: "11"},
-        {id: "2", first: "6", operator: "*", second: "12", solution: "72"},
-        {id: "3", first: "52", operator: "-", second: "16", solution: "36"}
-    ]
+export class HistoryPage implements OnInit{
+
+    calculationHistory: any[] = [];
+    constructor(private api: Api) {}
+    ngOnInit() {
+        this.loadHistory();
+    }
+
+    loadHistory(){
+        //Api call for most recent data
+        this.api.getHistory(0,5).subscribe(data =>{
+            console.log("Fetching History:", data);
+            //Goes through each record and rename the object and save to calculation history
+            this.calculationHistory = data.map (calc => ({
+                id: calc.id,
+                first: calc.operation,
+                operator: calc.operation,
+                second: calc.num2,
+                solution: calc.result
+            }));
+        });
+    }
+
     returnToCalculatorButtonClickEvent = output<string>();
     handleButtonClick(){
         this.returnToCalculatorButtonClickEvent.emit('');
