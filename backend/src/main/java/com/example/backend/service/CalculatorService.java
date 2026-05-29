@@ -39,37 +39,6 @@ public class CalculatorService {
          return roundOffAndStringifySolution(solution);
     }
 
-    // public String performCalculation(String calculation){
-    //     String[] calcArr = parseCalculationToStrings(calculation);
-    //     double num1 = Double.parseDouble(calcArr[0]);
-    //     double num2 = Double.parseDouble(calcArr[2]);
-    //     String operation = calcArr[1];
-    //     double solution = 0;
-
-        
-    //     switch(operation){
-    //         case "+":
-    //             solution = num1 + num2;
-    //             break;
-    //         case "-":
-    //             solution = num1 - num2;
-    //             break;
-    //         case "*":
-    //             solution = num1 * num2;
-    //             break;
-    //         case "/":
-    //             solution = num1 / num2;
-    //             break;
-    //     }
-    //     calcArr[3] = roundOffAndStringifySolution(solution);
-
-
-    //     sendCalculationToDB(calcArr);
-
-    //     return ((Double)solution).toString();
-        
-    // }
-
     //sends stuff to the repository layer, returns a boolean true if successful.
     private boolean sendCalculationToDB(CalculationRequest request, double solution){
         //fill this in
