@@ -25,7 +25,7 @@ public class CalculationHistoryController {
 
     @ResponseBody
     @GetMapping(value = "/history")
-    public CalculationHistoryResponse getListOfCalculations(@RequestBody CalculationHistoryRequest calculationHistoryRequest){
+    public CalculationHistoryResponse getListOfCalculations( CalculationHistoryRequest calculationHistoryRequest){
         CalculationHistoryResponse calculationHistoryResponse = this.calculationHistoryService.getListOfCalculationsFromDB(calculationHistoryRequest);
 
         return calculationHistoryResponse;
