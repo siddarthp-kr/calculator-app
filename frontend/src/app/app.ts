@@ -34,11 +34,19 @@ export class App {
   calculationValue = '';
   currentPageIsCalculator = true;
 
+  calculationJustPerformed = false;
+
   private api = inject(Api)
 
   constructor(private cd: ChangeDetectorRef){}
 
   updateCalculationValue(item: string) {
+    if(!"+-/*".includes(item)){
+      this.checkCurrentStateAndLockButtons();
+    } else {
+      this.calculationJustPerformed = false;
+    }
+    
     this.calculationValue += <string>item;
   }
 
@@ -63,10 +71,18 @@ export class App {
   }
 
   async performCalculationInBackend(){
+    this.calculationJustPerformed = true;
     let solution = await this.api.sendCalculationToBackend(this.calculationValue);
     this.calculationValue = solution//JSON.parse(solution).solution;
     console.log(solution)
     console.log(this.calculationValue)
     this.cd.detectChanges()
+  }
+
+  checkCurrentStateAndLockButtons(){
+    if(this.calculationJustPerformed){
+      this.calculationValue = '';
+      this.calculationJustPerformed = false;
+    }
   }
 }
