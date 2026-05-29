@@ -4,12 +4,13 @@ import java.util.List;
 import java.util.ArrayList;
 import com.example.backend.model.Calculation;
 import com.example.backend.model.CalculationHistoryRequest;
+import com.example.backend.model.CalculationHistoryResponse;
 
 @Service
 public class CalculationHistoryService {
-    public List<Calculation> getListOfCalculationsFromDB(CalculationHistoryRequest request){
+    public CalculationHistoryResponse getListOfCalculationsFromDB(CalculationHistoryRequest request){
         List<Calculation> listOfCalculations = new ArrayList<>();
 
-        return listOfCalculations;
+        return new CalculationHistoryResponse(listOfCalculations);
     }
 }
