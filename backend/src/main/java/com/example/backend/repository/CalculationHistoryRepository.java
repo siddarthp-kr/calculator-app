@@ -19,7 +19,7 @@ public class CalculationHistoryRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Calculation> getListOfCalculations(CalculationHistoryRequest request){
+    public List<Calculation> getListOfCalculations(CalculationHistoryRequest request) {
         int page = request.getPage();
         int size = request.getSize();
         int offset = page * size;
