@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.ArrayList;
 import com.example.backend.model.Calculation;
 import com.example.backend.model.CalculationHistoryRequest;
+import com.example.backend.model.CalculationHistoryResponse;
 import com.example.backend.service.CalculationHistoryService;
 
 @RestController
@@ -22,11 +23,13 @@ public class CalculationHistoryController {
         this.calculationHistoryService = calculationHistoryService;
     }
     
+    //maybe return a POJO instead of a List?
+
     @RequestBody
     @GetMapping(value = "/history")
-    public List<Calculation> getListOfCalculations(CalculationHistoryRequest request){
-        List<Calculation> result = new ArrayList<>();
+    public CalculationHistoryResponse getListOfCalculations(CalculationHistoryRequest calculationHistoryRequest){
+        CalculationHistoryResponse calculationHistoryResponse = this.calculationHistoryService.getListOfCalculationsFromDB(calculationHistoryRequest);
 
-        return result;
+        return calculationHistoryResponse;
     }
 }
