@@ -22,7 +22,6 @@ import com.example.backend.model.CalculationRequest;
 import com.example.backend.service.CalculatorService;
 import com.example.backend.model.CalculationRequest;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/api/calculator")

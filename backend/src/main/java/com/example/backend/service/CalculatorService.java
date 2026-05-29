@@ -2,12 +2,15 @@ package com.example.backend.service;
 import java.lang.Math;
 import org.springframework.stereotype.Service;
 import com.example.backend.model.CalculationRequest;
+import com.example.backend.model.Calculation;
 import com.example.backend.repository.CalculatorRepositoryImpl;
 
 @Service
 public class CalculatorService {
     
-    public CalculatorService(){
+    private final CalculatorRepositoryImpl calculatorRepository;
+    public CalculatorService(CalculatorRepositoryImpl calculatorRepository){
+        this.calculatorRepository = calculatorRepository;
     }
 
     public String performCalculation(CalculationRequest request) {
@@ -30,7 +33,10 @@ public class CalculatorService {
                  solution = num1 / num2;
                  break;
          }
-         return String.valueOf(solution);
+
+         sendCalculationToDB(request, solution);
+
+         return roundOffAndStringifySolution(solution);
     }
 
     // public String performCalculation(String calculation){
@@ -65,9 +71,19 @@ public class CalculatorService {
     // }
 
     //sends stuff to the repository layer, returns a boolean true if successful.
-    private boolean sendCalculationToDB(String[] calcArr){
+    private boolean sendCalculationToDB(CalculationRequest request, double solution){
         //fill this in
-        return false;
+        boolean result = false;
+
+        Calculation calculation = new Calculation();
+        calculation.setNum1(request.getNum1());
+        calculation.setNum2(request.getNum2());
+        calculation.setOperation(request.getOperation());
+        calculation.setResult(solution);
+
+        result = this.calculatorRepository.save(calculation) == 1;
+
+        return result;
     }
 
     //Converts a string of the whole calculation into a string array: ["num1", "operation", "num2", ""];
@@ -137,4 +153,5 @@ public class CalculatorService {
 
         return numStr;
     }
+
 }
