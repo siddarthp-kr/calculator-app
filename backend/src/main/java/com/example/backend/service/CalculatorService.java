@@ -1,47 +1,68 @@
 package com.example.backend.service;
 import java.lang.Math;
 import org.springframework.stereotype.Service;
+import com.example.backend.model.CalculationRequest;
 import com.example.backend.repository.CalculatorRepositoryImpl;
 
 @Service
 public class CalculatorService {
     
-    private final CalculatorRepositoryImpl calculatorRepository;
-    public CalculatorService(CalculatorRepositoryImpl repository){
-        this.calculatorRepository = repository;
+    public CalculatorService(){
     }
 
-
-    public String performCalculation(String calculation){
-        String[] calcArr = parseCalculationToStrings(calculation);
-        double num1 = Double.parseDouble(calcArr[0]);
-        double num2 = Double.parseDouble(calcArr[2]);
-        String operation = calcArr[1];
+    public String performCalculation(CalculationRequest request) {
+        double num1 = request.getNum1();
+        double num2 = request.getNum2();
+        String operation = request.getOperation();
         double solution = 0;
 
-        
         switch(operation){
-            case "+":
-                solution = num1 + num2;
-                break;
-            case "-":
-                solution = num1 - num2;
-                break;
-            case "*":
-                solution = num1 * num2;
-                break;
-            case "/":
-                solution = num1 / num2;
-                break;
-        }
-        calcArr[3] = roundOffAndStringifySolution(solution);
-
-
-        sendCalculationToDB(calcArr);
-
-        //return ((Double)solution).toString();
-        return calcArr[3];
+             case "+":
+                 solution = num1 + num2;
+                 break;
+             case "-":
+                 solution = num1 - num2;
+                 break;
+             case "*":
+                 solution = num1 * num2;
+                 break;
+             case "/":
+                 solution = num1 / num2;
+                 break;
+         }
+         return String.valueOf(solution);
     }
+
+    // public String performCalculation(String calculation){
+    //     String[] calcArr = parseCalculationToStrings(calculation);
+    //     double num1 = Double.parseDouble(calcArr[0]);
+    //     double num2 = Double.parseDouble(calcArr[2]);
+    //     String operation = calcArr[1];
+    //     double solution = 0;
+
+        
+    //     switch(operation){
+    //         case "+":
+    //             solution = num1 + num2;
+    //             break;
+    //         case "-":
+    //             solution = num1 - num2;
+    //             break;
+    //         case "*":
+    //             solution = num1 * num2;
+    //             break;
+    //         case "/":
+    //             solution = num1 / num2;
+    //             break;
+    //     }
+    //     calcArr[3] = roundOffAndStringifySolution(solution);
+
+
+    //     sendCalculationToDB(calcArr);
+
+    //     return ((Double)solution).toString();
+        
+    // }
 
     //sends stuff to the repository layer, returns a boolean true if successful.
     private boolean sendCalculationToDB(String[] calcArr){
