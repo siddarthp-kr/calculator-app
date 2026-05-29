@@ -6,8 +6,15 @@ import { ChangeDetectorRef } from '@angular/core';
     selector: 'history-page',
     template: `
     <h2>Calculation History</h2>
-    <h5>These are the last {{calculationHistory.length}} calculations</h5>
+
+    @if(calculationHistory.length === 0){
+        <h5>There are no calculations</h5>
+    } @else{
+        <h5>These are the last {{ calculationHistory.length }} calculations</h5>
+        }
+    
     <button class="returnToCalcButton" (click)="handleButtonClick()">Return to Calculator</button>
+
     <table>
         @for(calc of calculationHistory; track calc.id){
             
@@ -42,7 +49,7 @@ export class HistoryPage implements OnInit{
 
     loadHistory(){
         //Api call for most recent data
-        this.api.getHistory(0,5).subscribe(data =>{
+        this.api.getHistory(this.currentPage, this.pageSize).subscribe(data =>{
             console.log("Fetching History:", data);
             //Goes through each record and rename the object and save to calculation history
             this.calculationHistory = data.calculations.map ((calc: any) => ({
